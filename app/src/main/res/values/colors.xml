@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Primary Colors -->
+    <color name="primary_green">#2E6B45</color>
+    <color name="dark_green">#263A29</color>
+
+    <!-- Background Colors -->
+    <color name="cream_background">#FFF8F0</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="secondary_text">#777777</color>
+
+</resources>
