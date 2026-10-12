@@ -3,20 +3,20 @@ package com.example.gharkasaman.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.BakeryDining
 import androidx.compose.material.icons.filled.CleaningServices
 import androidx.compose.material.icons.filled.Eco
 import androidx.compose.material.icons.filled.LocalFlorist
 import androidx.compose.material.icons.filled.Remove
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingBasket
 import androidx.compose.material3.*
@@ -48,7 +48,6 @@ fun HomeScreen(
     var searchText by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf<String?>(null) }
     var quantities by remember { mutableStateOf(mapOf<String, Int>()) }
-
 
     val categories = listOf(
         GroceryCategory("Dairy & Eggs", Icons.Default.ShoppingBasket),
@@ -151,9 +150,8 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Only this middle section changes
+        // Only the middle section changes
         if (selectedCategory == null) {
-
             Text(
                 text = "Shop by Category",
                 fontSize = 22.sp,
@@ -188,10 +186,8 @@ fun HomeScreen(
                     )
                 }
             }
-
         } else {
-
-            // Selected category screen
+            // Selected category header
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -258,7 +254,8 @@ fun HomeScreen(
                             quantity = quantities[item.name] ?: 1,
                             isAdded = item.name in addedItems,
                             onQuantityChange = { newQuantity ->
-                                quantities = quantities + (item.name to newQuantity)
+                                quantities = quantities +
+                                        (item.name to newQuantity)
                             },
                             onAddClick = {
                                 onAddItem(
@@ -410,7 +407,11 @@ fun GroceryItemCard(
                     )
                 ) {
                     Text(
-                        text = if (isAdded) "Added" else "Add to List",
+                        text = if (isAdded) {
+                            "Added"
+                        } else {
+                            "Add to List"
+                        },
                         fontSize = 12.sp
                     )
                 }

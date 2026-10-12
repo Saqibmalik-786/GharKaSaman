@@ -140,7 +140,9 @@ fun MyListScreen(
                             }
 
                             IconButton(
-                                onClick = { onRemoveItem(name) }
+                                onClick = {
+                                    onRemoveItem(name)
+                                }
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Delete,

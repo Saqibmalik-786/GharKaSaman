@@ -14,7 +14,9 @@ import com.example.gharkasaman.ui.screens.HomeScreen
 import com.example.gharkasaman.ui.screens.MyListScreen
 import com.example.gharkasaman.ui.screens.SettingsScreen
 import com.example.gharkasaman.ui.theme.CreamBackground
-
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,13 @@ fun GroceryApp() {
     var purchasedItems by remember {
         mutableStateOf<Set<String>>(emptySet())
     }
+    var showDuplicateDialog by remember {
+        mutableStateOf(false)
+    }
+
+    var pendingItem by remember {
+        mutableStateOf<Pair<String, Int>?>(null)
+    }
 
     GroceryNavigation(
         selectedTab = selectedTab,
@@ -53,7 +62,12 @@ fun GroceryApp() {
             0 -> HomeScreen(
                 addedItems = groceryList.keys,
                 onAddItem = { name, quantity ->
-                    groceryList = groceryList + (name to quantity)
+                    if (name in groceryList) {
+                        pendingItem = name to quantity
+                        showDuplicateDialog = true
+                    } else {
+                        groceryList = groceryList + (name to quantity)
+                    }
                 }
             )
 
@@ -75,5 +89,45 @@ fun GroceryApp() {
 
             2 -> SettingsScreen()
         }
+    }
+    if (showDuplicateDialog && pendingItem != null) {
+        AlertDialog(
+            onDismissRequest = {
+                showDuplicateDialog = false
+                pendingItem = null
+            },
+            title = {
+                Text("Item Already Added")
+            },
+            text = {
+                Text(
+                    "${pendingItem!!.first} is already in your grocery list. " +
+                            "Do you want to update its quantity?"
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        val item = pendingItem!!
+                        groceryList = groceryList + (item.first to item.second)
+
+                        showDuplicateDialog = false
+                        pendingItem = null
+                    }
+                ) {
+                    Text("Update Quantity")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDuplicateDialog = false
+                        pendingItem = null
+                    }
+                ) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 }
