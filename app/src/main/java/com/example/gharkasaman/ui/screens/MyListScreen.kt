@@ -15,7 +15,8 @@ fun MyListScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp)
+            .padding(horizontal = 22.dp)
+            .padding(top = 60.dp)
     ) {
         Text(
             text = "My Grocery List",
