@@ -41,11 +41,14 @@ data class GroceryItem(
 )
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    addedItems: Set<String>,
+    onAddItem: (String, Int) -> Unit
+) {
     var searchText by remember { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf<String?>(null) }
     var quantities by remember { mutableStateOf(mapOf<String, Int>()) }
-    var addedItems by remember { mutableStateOf(setOf<String>()) }
+
 
     val categories = listOf(
         GroceryCategory("Dairy & Eggs", Icons.Default.ShoppingBasket),
@@ -258,7 +261,10 @@ fun HomeScreen() {
                                 quantities = quantities + (item.name to newQuantity)
                             },
                             onAddClick = {
-                                addedItems = addedItems + item.name
+                                onAddItem(
+                                    item.name,
+                                    quantities[item.name] ?: 1
+                                )
                             }
                         )
                     }
