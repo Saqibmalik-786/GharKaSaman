@@ -67,29 +67,6 @@ The application uses a clean, minimal design with a grocery-inspired color palet
 
 5. Click **Run ▶️** to build and launch the application.
 
-Replace `YOUR_USERNAME` with your GitHub username.
-
-## 📂 Project Structure
-
-```text
-GharKaSamanApp/
-├── app/
-│   └── src/
-│       └── main/
-│           ├── java/
-│           │   └── com/example/gharkasaman/
-│           │       └── MainActivity.kt
-│           ├── res/
-│           └── AndroidManifest.xml
-├── gradle/
-│   └── libs.versions.toml
-├── build.gradle.kts
-├── settings.gradle.kts
-└── README.md
-```
-
-*Note: The project structure may evolve as development continues.*
-
 ## 🗺️ Roadmap
 
 - [x] Create the Android project
